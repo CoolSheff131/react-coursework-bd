@@ -21,12 +21,10 @@ const connection = mysql.createConnection({
   database: 'test',
 });
 // тестирование подключения
-connection.connect(function (err) {
-  if (err) {
-    return console.error('Ошибка: ' + err.message);
-  } else {
-    console.log('Подключение к серверу MySQL успешно установлено');
-  }
+connection.execute('SELECT * FROM test', function (err, results, fields) {
+  console.log(err);
+  console.log(results); // собственно данные
+  console.log(fields); // мета-данные полей
 });
 // закрытие подключения
 connection.end(function (err) {
