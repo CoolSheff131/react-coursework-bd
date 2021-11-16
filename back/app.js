@@ -1,8 +1,22 @@
+var bd = require('./bd');
+var document = require('./routes/document');
+var journal = require('./routes/journal');
+var organization = require('./routes/organization');
+var otdel = require('./routes/otdel');
+var workers = require('./routes/workers');
 const express = require('express');
 const app = express();
 const port = 3000;
+app.use('/document', document);
+app.use('/journal', journal);
+app.use('/organization', organization);
+app.use('/otdel', otdel);
+app.use('/workers', workers);
 app.get('/', (request, response) => {
-  response.send('Hello from Express!');
+  bd.query('select * from document', function (err, result) {
+    if (err) throw err;
+    response.send(result);
+  });
 });
 app.listen(port, (err) => {
   if (err) {
@@ -10,32 +24,3 @@ app.listen(port, (err) => {
   }
   console.log(`server is listening on ${port}`);
 });
-///////////////////////////////
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'test',
-});
-connection.connect(function (err) {
-  if (err) throw err;
-  console.log('Connected!');
-  connection.query('SELECT * FROM test', function (err, result) {
-    if (err) throw err;
-    console.log('Result: ' + result);
-  });
-});
-// тестирование подключения
-// connection.execute('SELECT * FROM test', function (err, results, fields) {
-//   console.log(err);
-//   console.log(results); // собственно данные
-//   console.log(fields); // мета-данные полей
-//});
-// закрытие подключения
-// connection.end(function (err) {
-//   if (err) {
-//     return console.log('Ошибка: ' + err.message);
-//   }
-//   console.log('Подключение закрыто');
-// });
