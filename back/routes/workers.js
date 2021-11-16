@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
-
+var bd = require('../bd');
 // Home page route
 router.get('/', function (req, res) {
-  res.send('workers home page');
+  bd.query('select * from workers', function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
 });
 
 module.exports = router;
