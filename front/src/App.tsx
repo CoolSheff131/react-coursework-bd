@@ -5,11 +5,11 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-import Journal from './pages/Journal';
-import Organization from './pages/Organization';
-import Otdel from './pages/Otdel';
-import Worker from './pages/Worker';
-import Document from './pages/Document';
+import JournalPage from './pages/JournalPage';
+import Organization from './pages/OrganizationPage';
+import Otdel from './pages/OtdelPage';
+import Worker from './pages/WorkerPage';
+import Document from './pages/DocumentPage';
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
       </div>
       <Routes>
         <Route path='/document' element={<Document />} />
-        <Route path='/journal' element={<Journal />} />
+        <Route path='/journal' element={<JournalPage />} />
         <Route path='/organization' element={<Organization />} />
         <Route path='/otdel' element={<Otdel />} />
         <Route path='/worker' element={<Worker />} />
