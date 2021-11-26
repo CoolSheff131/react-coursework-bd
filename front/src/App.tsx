@@ -1,8 +1,7 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import './App.css';
 import JournalPage from './pages/JournalPage';
@@ -10,30 +9,13 @@ import Organization from './pages/OrganizationPage';
 import Otdel from './pages/OtdelPage';
 import Worker from './pages/WorkerPage';
 import Document from './pages/DocumentPage';
+import NavBar from './components/NavComponent';
 
 function App() {
   return (
     <Router>
       <div >
-        <nav>
-          <ul>
-            <li>
-              <Link to="/document">document</Link>
-            </li>
-            <li>
-              <Link to="/journal">journal</Link>
-            </li>
-            <li>
-              <Link to="/organization">organization</Link>
-            </li>
-            <li>
-              <Link to="/otdel">otdel</Link>
-            </li>
-            <li>
-              <Link to="/worker">worker</Link>
-            </li>
-          </ul>
-        </nav>
+        <NavBar />
       </div>
       <Routes>
         <Route path='/document' element={<Document />} />
