@@ -9,4 +9,25 @@ router.get('/', function (req, res) {
   });
 });
 
+router.post('/', function (req, res) {
+  console.log(req);
+  const firstNameAuthor = req.body.firstNameAuthor;
+  const name = req.body.name;
+  const number = req.body.number;
+  const organizationName = req.body.organizationName;
+  const pageCount = req.body.pageCount;
+  const secondNameAuthor = req.body.secondNameAuthor;
+  const type = req.body.type;
+  const year = req.body.year;
+
+  bd.query(
+    `INSERT document(firstNameAuthor, name, number, organizationName, pageCount, secondNameAuthor, type, year)
+            VALUES ('${firstNameAuthor}', '${name}', '${number}', '${organizationName}', '${pageCount}', '${secondNameAuthor}', '${type}', '${year}')`,
+    function (err, result) {
+      console.log(err);
+      res.send(result);
+    },
+  );
+});
+
 module.exports = router;

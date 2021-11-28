@@ -10,6 +10,16 @@ export function getDocuments(): Promise<Document[]>{
         error => {throw Error(error)})
 }
 
+export function createDocument(document: Document): Promise<String | Response>{
+    return fetch('http://localhost:5000/document',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(document)
+    }).then(data => data)
+}
+
 export function getJournals(): Promise<Journal[]>{
     return fetch('http://localhost:5000/journal').then(
         data => data.json(),

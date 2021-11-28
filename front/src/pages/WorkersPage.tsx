@@ -30,7 +30,7 @@ function WorkersPage() {
             <Container>
                 <h1>Workers</h1>
                 <Button variant="primary" size="lg" onClick={() => { crtWorker() }}>
-                    CreateOtdel
+                    CreateWorker
                 </Button>
                 <Row>
                     {workers?.map(worker => <Col xs={6}><CardWorker worker={worker} /></Col>)}

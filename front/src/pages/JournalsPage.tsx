@@ -30,7 +30,7 @@ function JournalsPage() {
         <div>
             <Container>
                 <Button variant="primary" size="lg" onClick={() => { crtJournal() }}>
-                    CreateOtdel
+                    CreateJournal
                 </Button>
                 <h1>Journals</h1>
                 <Row>
