@@ -8,6 +8,7 @@ var cors = require('cors');
 const app = express();
 const port = 5000;
 app.use(cors());
+app.use(express.json());
 app.use('/document', document);
 app.use('/journal', journal);
 app.use('/organization', organization);

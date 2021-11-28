@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { getOrganizations } from "../api";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { createOrganizations, getOrganizations } from "../api";
 import CardOrganization from "../components/CardOrganization";
 import Organization from "../Entities/Organization"
 
@@ -15,10 +15,25 @@ function OrganizationsPage() {
 
         }
     }, [])
+    const crtOrg = () => {
+        const org: Organization = {
+            addressIndex: '3',
+            id: 0,
+            name: "3",
+            city: "3",
+            phone: "3",
+            faks: "3",
+            email: "3"
+        }
+        createOrganizations(org).then(result => { console.log(result) });
+    }
     return (
         <div>
             <Container>
                 <h1>Organizations</h1>
+                <Button variant="primary" size="lg" onClick={() => { crtOrg() }}>
+                    CreateOrganization
+                </Button>
                 <Row>
                     {organizations?.map(organization => <Col xs={6}><CardOrganization organization={organization} /></Col>)}
                 </Row>

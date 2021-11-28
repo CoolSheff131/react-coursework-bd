@@ -9,23 +9,43 @@ export function getDocuments(): Promise<Document[]>{
         data => data.json(),
         error => {throw Error(error)})
 }
+
 export function getJournals(): Promise<Journal[]>{
     return fetch('http://localhost:5000/journal').then(
         data => data.json(),
         error => {throw Error(error)})
 }
+
 export function getOrganizations(): Promise<Organization[]>{
     return fetch('http://localhost:5000/organization').then(
         data => data.json(),
         error => {throw Error(error)})
 }
+
+export function createOrganizations(organization: Organization): Promise<String | Response>{
+    console.log(JSON.stringify(organization));
+    return fetch('http://localhost:5000/organization',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(organization)
+    }).then(data => data)
+    // .then(
+    //     data => data.text(),
+    //     error => {throw Error(error)})
+    
+}
+
 export function getOtdels(): Promise<Otdel[]>{
     return fetch('http://localhost:5000/otdel').then(
         data => data.json(),
         error => {throw Error(error)})
 }
+
 export function getWorkers(): Promise<Worker[]>{
     return fetch('http://localhost:5000/worker').then(
         data => data.json(),
         error => {throw Error(error)})
 }
+
