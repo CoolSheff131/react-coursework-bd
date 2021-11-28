@@ -23,7 +23,6 @@ export function getOrganizations(): Promise<Organization[]>{
 }
 
 export function createOrganizations(organization: Organization): Promise<String | Response>{
-    console.log(JSON.stringify(organization));
     return fetch('http://localhost:5000/organization',{
         method: 'POST',
         headers: {
@@ -31,16 +30,22 @@ export function createOrganizations(organization: Organization): Promise<String 
           },
         body: JSON.stringify(organization)
     }).then(data => data)
-    // .then(
-    //     data => data.text(),
-    //     error => {throw Error(error)})
-    
 }
 
 export function getOtdels(): Promise<Otdel[]>{
     return fetch('http://localhost:5000/otdel').then(
         data => data.json(),
         error => {throw Error(error)})
+}
+
+export function createtOtdel(otdel: Otdel): Promise<String | Response>{
+    return fetch('http://localhost:5000/otdel',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(otdel)
+    }).then(data => data)
 }
 
 export function getWorkers(): Promise<Worker[]>{

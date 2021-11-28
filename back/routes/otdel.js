@@ -9,4 +9,22 @@ router.get('/', function (req, res) {
   });
 });
 
+router.post('/', function (req, res) {
+  console.log(req);
+  const firstNameBoss = req.body.firstNameBoss;
+  const name = req.body.name;
+  const organizationId = req.body.organizationId;
+  const organizationName = req.body.organizationName;
+  const phone = req.body.phone;
+  const secondNameBoss = req.body.secondNameBoss;
+  bd.query(
+    `INSERT otdel(firstNameBoss, name, organizationId, organizationName, phone, secondNameBoss)
+            VALUES ('${firstNameBoss}', '${name}', '${organizationId}', '${organizationName}', '${phone}','${secondNameBoss}')`,
+    function (err, result) {
+      console.log(err);
+      res.send(result);
+    },
+  );
+});
+
 module.exports = router;

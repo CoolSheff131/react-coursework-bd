@@ -3,9 +3,9 @@ interface Otdel{
     id: number;
     name: string;
     organizationId: number;
-    organizationName: number;
-    phone: number;
-    secondNameBoss: number;
+    organizationName: string;
+    phone: string;
+    secondNameBoss: string;
 }
 
 export default Otdel;
