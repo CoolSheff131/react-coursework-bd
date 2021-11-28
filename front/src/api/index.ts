@@ -16,6 +16,16 @@ export function getJournals(): Promise<Journal[]>{
         error => {throw Error(error)})
 }
 
+export function createJournal(journal: Journal): Promise<String | Response>{
+    return fetch('http://localhost:5000/journal',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(journal)
+    }).then(data => data)
+}
+
 export function getOrganizations(): Promise<Organization[]>{
     return fetch('http://localhost:5000/organization').then(
         data => data.json(),

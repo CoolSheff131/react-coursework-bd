@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import { getJournals } from '../api'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { createJournal, getJournals } from '../api'
 import CardJournal from '../components/CardJournal'
 import Journal from '../Entities/Journal'
 function JournalsPage() {
@@ -14,9 +14,24 @@ function JournalsPage() {
 
         }
     }, [])
+
+    const crtJournal = () => {
+        const jrn: Journal = {
+            actionType: '3',
+            documentNumber: 3,
+            documentId: 1,
+            workerId: 1,
+            id: 0
+        }
+        createJournal(jrn).then(result => { console.log(result) });
+    }
+
     return (
         <div>
             <Container>
+                <Button variant="primary" size="lg" onClick={() => { crtJournal() }}>
+                    CreateOtdel
+                </Button>
                 <h1>Journals</h1>
                 <Row>
                     {journals?.map(journal => <Col xs={6}><CardJournal journal={journal} /></Col>)}
