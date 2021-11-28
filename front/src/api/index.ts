@@ -54,3 +54,13 @@ export function getWorkers(): Promise<Worker[]>{
         error => {throw Error(error)})
 }
 
+export function createtWorker(worker: Worker): Promise<String | Response>{
+    return fetch('http://localhost:5000/worker',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(worker)
+    }).then(data => data)
+}
+
