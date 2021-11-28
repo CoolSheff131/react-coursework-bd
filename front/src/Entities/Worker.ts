@@ -1,4 +1,4 @@
-interface worker{
+interface Worker{
     firstName: string;
     id: number;
     otdelId: number;
