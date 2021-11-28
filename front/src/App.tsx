@@ -4,11 +4,11 @@ import {
   Route
 } from 'react-router-dom';
 import './App.css';
-import JournalPage from './pages/JournalPage';
-import Organization from './pages/OrganizationPage';
-import Otdel from './pages/OtdelPage';
-import Worker from './pages/WorkerPage';
-import Document from './pages/DocumentPage';
+import JournalsPage from './pages/JournalsPage';
+import OrganizationsPage from './pages/OrganizationsPage';
+import OtdelsPage from './pages/OtdelsPage';
+import WorkersPage from './pages/WorkersPage';
+import DocumentsPage from './pages/DocumentsPage';
 import NavBar from './components/NavComponent';
 
 function App() {
@@ -18,11 +18,11 @@ function App() {
         <NavBar />
       </div>
       <Routes>
-        <Route path='/document' element={<Document />} />
-        <Route path='/journal' element={<JournalPage />} />
-        <Route path='/organization' element={<Organization />} />
-        <Route path='/otdel' element={<Otdel />} />
-        <Route path='/worker' element={<Worker />} />
+        <Route path='/document' element={<DocumentsPage />} />
+        <Route path='/journal' element={<JournalsPage />} />
+        <Route path='/organization' element={<OrganizationsPage />} />
+        <Route path='/otdel' element={<OtdelsPage />} />
+        <Route path='/worker' element={<WorkersPage />} />
       </Routes>
     </Router>
   );

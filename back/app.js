@@ -12,7 +12,7 @@ app.use('/document', document);
 app.use('/journal', journal);
 app.use('/organization', organization);
 app.use('/otdel', otdel);
-app.use('/workers', workers);
+app.use('/worker', workers);
 // app.get('/', (request, response) => {
 
 // });

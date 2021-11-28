@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { getDocuments } from '../api'
 import CardDocument from '../components/CardDocument'
 import Document from '../Entities/Document'
-function DocumentPage() {
+function DocumentsPage() {
     const [Documents, setDocuments] = useState<Document[]>()
     useEffect(() => {
         getDocuments().then(data => {
@@ -17,7 +17,7 @@ function DocumentPage() {
     return (
         <div>
             <Container>
-                <h1>Document</h1>
+                <h1>Documents</h1>
                 <Row>
                     {Documents?.map(document => <Col xs={6}><CardDocument document={document} /></Col>)}
                 </Row>
@@ -27,4 +27,4 @@ function DocumentPage() {
     )
 }
 
-export default DocumentPage
+export default DocumentsPage
