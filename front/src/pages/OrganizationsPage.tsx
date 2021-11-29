@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { createOrganizations, getOrganizations } from "../api";
+import { createOrganization, getOrganizations } from "../api";
 import CardOrganization from "../components/CardOrganization";
 import Organization from "../Entities/Organization"
 
@@ -25,7 +25,7 @@ function OrganizationsPage() {
             faks: "3",
             email: "3"
         }
-        createOrganizations(org).then(result => { console.log(result) });
+        createOrganization(org).then(result => { console.log(result) });
     }
     return (
         <div>

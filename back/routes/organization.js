@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var bd = require('../bd');
-// Home page route
-router.get('/', function (req, res) {
+
+router.get('/', (req, res) => {
   bd.query('select * from organization', function (err, result) {
     if (err) throw err;
     res.send(result);
   });
 });
 
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
   console.log(req);
   const addressIndex = req.body.addressIndex;
   const city = req.body.city;
@@ -24,6 +24,17 @@ router.post('/', function (req, res) {
       res.send(result);
     },
   );
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(req);
+  bd.query(`DELETE FROM organization WHERE id = ${id}`, (err, result) => {
+    console.log(result);
+    console.log(err);
+
+    res.send(result);
+  });
 });
 
 module.exports = router;

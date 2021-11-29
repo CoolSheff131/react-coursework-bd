@@ -42,13 +42,20 @@ export function getOrganizations(): Promise<Organization[]>{
         error => {throw Error(error)})
 }
 
-export function createOrganizations(organization: Organization): Promise<String | Response>{
+export function createOrganization(organization: Organization): Promise<String | Response>{
     return fetch('http://localhost:5000/organization',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
           },
         body: JSON.stringify(organization)
+    }).then(data => data)
+}
+
+export function deleteOrganization(id: number): Promise<String | Response>{
+    console.log(id);
+    return fetch(`http://localhost:5000/organization/${id} `,{
+        method: 'DELETE'
     }).then(data => data)
 }
 
