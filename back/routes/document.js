@@ -30,4 +30,15 @@ router.post('/', function (req, res) {
   );
 });
 
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(req);
+  bd.query(`DELETE FROM document WHERE id = ${id}`, (err, result) => {
+    console.log(result);
+    console.log(err);
+
+    res.send(result);
+  });
+});
+
 module.exports = router;

@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { deleteDocument } from "../api";
 import Document from "../Entities/Document";
 
 interface DocumentProp {
@@ -6,6 +7,9 @@ interface DocumentProp {
 }
 function CardDocument(prop: DocumentProp) {
     const { document } = prop;
+    const deleteHandle = () => {
+        deleteDocument(document.id).then(result => { console.log(result) })
+    }
     return (
         <Card border="dark">
             <Card.Header as="h5">{document.name}</Card.Header>
@@ -25,7 +29,7 @@ function CardDocument(prop: DocumentProp) {
                     {document.year}
                 </Card.Text>
                 <ButtonGroup size="sm" >
-                    <Button variant="dark">Delete</Button>
+                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
                     <Button variant="dark">Change</Button>
                     <Button variant="dark">Show</Button>
                 </ButtonGroup>

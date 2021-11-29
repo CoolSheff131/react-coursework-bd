@@ -20,6 +20,13 @@ export function createDocument(document: Document): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function deleteDocument(id: number): Promise<String | Response>{
+    console.log(id);
+    return fetch(`http://localhost:5000/document/${id} `,{
+        method: 'DELETE'
+    }).then(data => data)
+}
+
 export function getJournals(): Promise<Journal[]>{
     return fetch('http://localhost:5000/journal').then(
         data => data.json(),
