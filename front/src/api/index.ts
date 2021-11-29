@@ -88,6 +88,13 @@ export function createtOtdel(otdel: Otdel): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function deleteOtdel(id: number): Promise<String | Response>{
+    console.log(id);
+    return fetch(`http://localhost:5000/otdel/${id} `,{
+        method: 'DELETE'
+    }).then(data => data)
+}
+
 export function getWorkers(): Promise<Worker[]>{
     return fetch('http://localhost:5000/worker').then(
         data => data.json(),

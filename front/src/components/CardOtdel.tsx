@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { deleteOtdel } from "../api";
 import Otdel from "../Entities/Otdel";
 
 interface DocumentProp {
@@ -6,6 +7,9 @@ interface DocumentProp {
 }
 function CardOtdel(prop: DocumentProp) {
     const { otdel } = prop;
+    const deleteHandle = () => {
+        deleteOtdel(otdel.id).then(result => { console.log(result) })
+    }
     return (
         <Card border="dark">
             <Card.Header as="h5">{otdel.name}</Card.Header>
@@ -19,7 +23,7 @@ function CardOtdel(prop: DocumentProp) {
                     {otdel.phone}
                 </Card.Text>
                 <ButtonGroup size="sm" >
-                    <Button variant="dark">Delete</Button>
+                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
                     <Button variant="dark">Change</Button>
                     <Button variant="dark">Show</Button>
                 </ButtonGroup>
