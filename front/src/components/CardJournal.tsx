@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { deleteJournal } from "../api";
 import Journal from "../Entities/Journal";
 
 interface DocumentProp {
@@ -6,6 +7,9 @@ interface DocumentProp {
 }
 function CardJournal(prop: DocumentProp) {
     const { journal } = prop;
+    const deleteHandle = () => {
+        deleteJournal(journal.id).then(result => { console.log(result) })
+    }
     return (
         <Card border="dark">
             <Card.Header as="h5">{journal.documentNumber}</Card.Header>
@@ -19,7 +23,7 @@ function CardJournal(prop: DocumentProp) {
                     {journal.actionType}
                 </Card.Text>
                 <ButtonGroup size="sm" >
-                    <Button variant="dark">Delete</Button>
+                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
                     <Button variant="dark">Change</Button>
                     <Button variant="dark">Show</Button>
                 </ButtonGroup>

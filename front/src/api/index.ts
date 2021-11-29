@@ -35,6 +35,12 @@ export function createJournal(journal: Journal): Promise<String | Response>{
         body: JSON.stringify(journal)
     }).then(data => data)
 }
+export function deleteJournal(id: number): Promise<String | Response>{
+    console.log(id);
+    return fetch(`http://localhost:5000/journal/${id} `,{
+        method: 'DELETE'
+    }).then(data => data)
+}
 
 export function getOrganizations(): Promise<Organization[]>{
     return fetch('http://localhost:5000/organization').then(
