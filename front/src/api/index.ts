@@ -111,3 +111,10 @@ export function createtWorker(worker: Worker): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function deleteWorker(id: number): Promise<String | Response>{
+    console.log(id);
+    return fetch(`http://localhost:5000/worker/${id} `,{
+        method: 'DELETE'
+    }).then(data => data)
+}
+
