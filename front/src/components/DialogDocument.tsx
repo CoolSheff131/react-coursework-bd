@@ -1,5 +1,6 @@
-import { Formik, FormikProps, withFormik } from "formik";
+import { FormikProps, withFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
+import { createDocument } from "../api";
 import Document from "../Entities/Document";
 
 
@@ -16,24 +17,14 @@ interface FormValues {
 }
 interface MyFormProps {
     document?: Document
-}
-
-interface OtherProps {
-    title?: string;
-    show?: boolean
-    handleClose(): void;
+    handleConfirm(document: Document): void;
 }
 
 const DialogDocumentForm = (props: FormikProps<FormValues>) => {
     const {
         values,
-        errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
-        isSubmitting,
-
     } = props;
     return (
         <Form onSubmit={handleSubmit}>
@@ -71,7 +62,7 @@ const DialogDocumentForm = (props: FormikProps<FormValues>) => {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Submit
+                Подтвердить
             </Button>
         </Form>
     )
@@ -97,25 +88,38 @@ const Forms = withFormik<MyFormProps, FormValues>({
         { props, setSubmitting, setErrors }
     ) {
         console.log("OK");
+        const doc: Document = {
+            id: 0,
+            number,
+            firstNameAuthor,
+            name,
+            organizationName,
+            pageCount,
+            secondNameAuthor,
+            type,
+            year
+        }
+        props.handleConfirm(doc)
     }
 })(DialogDocumentForm);
 
 interface DialogDocumentProps {
+    title: string;
     show: boolean;
     handleClose(): void;
-    handleConfirm(event: any): void;
+    handleConfirm(document: Document): void;
     document?: Document;
 }
 
 const DialogDocument = (props: DialogDocumentProps) => {
-    const { show, document } = props;
+    const { show, document, handleConfirm, handleClose, title } = props;
     return (
-        <Modal show={show}>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Forms document={document} />
+                <Forms document={document} handleConfirm={handleConfirm} />
             </Modal.Body>
         </Modal>
     )

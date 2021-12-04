@@ -17,27 +17,14 @@ function DocumentsPage() {
 
         }
     }, [])
-    const crtDocument = () => {
-        const doc: Document = {
-            id: 0,
-            number: 3,
-            firstNameAuthor: '3',
-            name: '3',
-            organizationName: '3',
-            pageCount: 3,
-            secondNameAuthor: '3',
-            type: '3',
-            year: 3
-        }
-        createDocument(doc).then(result => { console.log(result) });
-    }
+
 
     const handleClose = () => {
         setShowCreateDialog(false);
     }
 
-    const handleConfirm = (event: any) => {
-        event.preventDefault();
+    const handleConfirm = (document: Document) => {
+        createDocument(document).then(result => { console.log(result) });
         setShowCreateDialog(false);
     }
 
@@ -51,7 +38,7 @@ function DocumentsPage() {
                 <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateDocument
                 </Button>
-                <DialogDocument show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={newdocument} />
+                <DialogDocument title="Добавление документа" show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={newdocument} />
                 <h1>Documents</h1>
                 <Row>
                     {Documents?.map(document => <Col xs={6}><CardDocument document={document} /></Col>)}
