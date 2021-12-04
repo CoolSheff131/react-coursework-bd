@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { createOrganization, getOrganizations } from "../api";
 import CardOrganization from "../components/CardOrganization";
+import DialogOrganization from "../components/DialogOrganization";
 import Organization from "../Entities/Organization"
 
 function OrganizationsPage() {
     const [organizations, setOrganiaions] = useState<Organization[]>()
+    const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
+
     useEffect(() => {
         getOrganizations().then(data => {
             setOrganiaions(data);
@@ -15,25 +18,28 @@ function OrganizationsPage() {
 
         }
     }, [])
-    const crtOrg = () => {
-        const org: Organization = {
-            addressIndex: '3',
-            id: 0,
-            name: "3",
-            city: "3",
-            phone: "3",
-            faks: "3",
-            email: "3"
-        }
-        createOrganization(org).then(result => { console.log(result) });
+
+    const handleClose = () => {
+        setShowCreateDialog(false);
     }
+
+    const handleConfirm = (organization: Organization) => {
+        createOrganization(organization).then(result => { console.log(result) });
+        setShowCreateDialog(false);
+    }
+
+    const handleOpen = () => {
+        setShowCreateDialog(true);
+    }
+
     return (
         <div>
             <Container>
                 <h1>Organizations</h1>
-                <Button variant="primary" size="lg" onClick={() => { crtOrg() }}>
+                <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateOrganization
                 </Button>
+                <DialogOrganization title="Добавление документа" show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} />
                 <Row>
                     {organizations?.map(organization => <Col xs={6}><CardOrganization organization={organization} /></Col>)}
                 </Row>
