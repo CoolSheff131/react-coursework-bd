@@ -7,6 +7,7 @@ import Document from '../Entities/Document'
 function DocumentsPage() {
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
     const [Documents, setDocuments] = useState<Document[]>()
+    const [newdocument, setNewdocument] = useState<Document>()
     useEffect(() => {
         getDocuments().then(data => {
             setDocuments(data);
@@ -50,7 +51,7 @@ function DocumentsPage() {
                 <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateDocument
                 </Button>
-                <DialogDocument show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} />
+                <DialogDocument show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={newdocument} />
                 <h1>Documents</h1>
                 <Row>
                     {Documents?.map(document => <Col xs={6}><CardDocument document={document} /></Col>)}
