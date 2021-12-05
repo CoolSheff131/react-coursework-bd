@@ -3,10 +3,21 @@ var router = express.Router();
 var bd = require('../bd');
 // Home page route
 router.get('/', function (req, res) {
-  bd.query('select * from otdel', function (err, result) {
-    if (err) throw err;
-    res.send(result);
-  });
+  bd.query(
+    `select 
+          otdel.firstNameBoss, 
+          otdel.name, 
+          otdel.organizationId, 
+          otdel.phone, 
+          otdel.secondNameBoss, 
+          organization.name as organizationName from otdel
+          JOIN organization on organization.id = otdel.organizationId `,
+    function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.send(result);
+    },
+  );
 });
 
 router.post('/', function (req, res) {
@@ -18,8 +29,8 @@ router.post('/', function (req, res) {
   const phone = req.body.phone;
   const secondNameBoss = req.body.secondNameBoss;
   bd.query(
-    `INSERT otdel(firstNameBoss, name, organizationId, organizationName, phone, secondNameBoss)
-            VALUES ('${firstNameBoss}', '${name}', '${organizationId}', '${organizationName}', '${phone}','${secondNameBoss}')`,
+    `INSERT otdel(firstNameBoss, name, organizationId, phone, secondNameBoss)
+            VALUES ('${firstNameBoss}', '${name}', '${organizationId}', '${phone}','${secondNameBoss}')`,
     function (err, result) {
       console.log(err);
       res.send(result);

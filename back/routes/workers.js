@@ -3,10 +3,15 @@ var router = express.Router();
 var bd = require('../bd');
 
 router.get('/', function (req, res) {
-  bd.query('select * from workers', function (err, result) {
-    if (err) throw err;
-    res.send(result);
-  });
+  bd.query(
+    `select workers.firstName, workers.otdelId, workers.secondName,
+          otdel.name as otdelName from workers
+          JOIN otdel on otdel.id = workers.otdelId`,
+    function (err, result) {
+      if (err) throw err;
+      res.send(result);
+    },
+  );
 });
 
 router.post('/', function (req, res) {
@@ -16,8 +21,8 @@ router.post('/', function (req, res) {
   const otdelName = req.body.otdelName;
   const secondName = req.body.secondName;
   bd.query(
-    `INSERT workers(firstName, otdelId, otdelName, secondName)
-            VALUES ('${firstName}', '${otdelId}', '${otdelName}', '${secondName}')`,
+    `INSERT workers(firstName, otdelId, secondName)
+            VALUES ('${firstName}', '${otdelId}', '${secondName}')`,
     function (err, result) {
       console.log(err);
       res.send(result);
