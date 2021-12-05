@@ -47,7 +47,7 @@ function OtdelsPage() {
                 <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateOtdel
                 </Button>
-                <DialogOtdel title={"Добавление организации"} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} organizations={organizations} />
+                <DialogOtdel title={"Добавление отдела"} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} organizations={organizations} />
                 <Row>
                     {otdels?.map(otdel => <Col xs={6}><CardOtdel otdel={otdel} /></Col>)}
                 </Row>

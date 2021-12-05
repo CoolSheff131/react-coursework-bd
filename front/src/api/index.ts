@@ -119,6 +119,16 @@ export function createtOtdel(otdel: Otdel): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function updateOtdel(otdel: Otdel): Promise<String | Response>{
+    return fetch('http://localhost:5000/otdel',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(otdel)
+    }).then(data => data)
+}
+
 export function deleteOtdel(id: number): Promise<String | Response>{
     console.log(id);
     return fetch(`http://localhost:5000/otdel/${id} `,{

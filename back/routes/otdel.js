@@ -38,6 +38,26 @@ router.post('/', function (req, res) {
   );
 });
 
+router.put('/', function (req, res) {
+  const id = req.body.id;
+  const firstNameBoss = req.body.firstNameBoss;
+  const name = req.body.name;
+  const organizationId = req.body.organizationId;
+  const organizationName = req.body.organizationName;
+  const phone = req.body.phone;
+  const secondNameBoss = req.body.secondNameBoss;
+  console.log(req);
+  bd.query(
+    `UPDATE otdel SET firstNameBoss='${firstNameBoss}', name='${name}', organizationId='${organizationId}', phone='${phone}', secondNameBoss='${secondNameBoss}'
+            where id = ${id}`,
+    function (err, result) {
+      console.log(err);
+      console.log(result);
+      res.send(result);
+    },
+  );
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(req);
