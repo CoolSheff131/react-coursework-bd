@@ -8,5 +8,6 @@ export default interface Document{
     secondNameAuthor: string;
     type: string;
     year: number;
+    inArchive?: boolean;
 }
 //export default Document;

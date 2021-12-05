@@ -4,6 +4,22 @@ import Organization from "../Entities/Organization"
 import Otdel from "../Entities/Otdel"
 import Worker from "../Entities/Worker"
 
+export function patchDocument(documentId:number,inArchive: boolean,workerId: number): Promise<Document[]>{
+    return fetch('http://localhost:5000/document',{
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify({
+            documentId,
+            inArchive,
+            workerId
+        })
+    }).then(
+        data => data.json(),
+        error => {throw Error(error)})
+}
+
 export function getDocuments(): Promise<Document[]>{
     return fetch('http://localhost:5000/document').then(
         data => data.json(),

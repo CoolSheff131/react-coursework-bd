@@ -54,6 +54,27 @@ router.put('/', function (req, res) {
   );
 });
 
+router.patch('/', function (req, res) {
+  const documentId = req.body.documentId;
+  const inArchive = req.body.inArchive;
+  const workerId = req.body.workerId;
+  console.log(req);
+  bd.query(
+    `UPDATE document SET inArchive = '${inArchive ? '1' : '0'}'
+            where id = ${documentId}`,
+    function (err, result) {
+      bd.query(
+        `INSERT journal(actionType, documentId, workerId)
+                VALUES ('${inArchive ? 'Положил' : 'Забрал'}', '${documentId}', '${workerId}')`,
+        function (err, result) {
+          console.log(err);
+          res.send(result);
+        },
+      );
+    },
+  );
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(req);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { deleteDocument, updateDocument } from "../api";
+import { deleteDocument, patchDocument, updateDocument } from "../api";
 import Document from "../Entities/Document";
 import DialogDocument from "./DialogDocument";
 
@@ -9,7 +9,7 @@ interface DocumentProp {
 }
 function CardDocument(prop: DocumentProp) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
-    const { document } = prop;
+    const [document, setDocument] = useState<Document>(prop.document)
     const deleteHandle = () => {
         deleteDocument(document.id).then(result => { console.log(result) })
     }
@@ -30,7 +30,10 @@ function CardDocument(prop: DocumentProp) {
     const handleOpen = () => {
         setShowDialog(true);
     }
-
+    const handlePatch = () => {
+        patchDocument(document.id, !document.inArchive, 18);
+        setDocument({ ...document, inArchive: !document.inArchive })
+    }
 
     return (
         <Card border="dark">
@@ -55,6 +58,7 @@ function CardDocument(prop: DocumentProp) {
                     <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
                     <Button variant="dark">Show</Button>
                 </ButtonGroup>
+                <Button variant="dark" onClick={() => handlePatch()}>{document.inArchive ? 'Забрать' : 'Положить'}</Button>
                 <DialogDocument title="Изменение документа" show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={document} />
             </Card.Body>
         </Card>
