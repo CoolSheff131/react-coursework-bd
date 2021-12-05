@@ -142,6 +142,16 @@ export function createtWorker(worker: Worker): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function updateWorker(worker: Worker): Promise<String | Response>{
+    return fetch('http://localhost:5000/worker',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(worker)
+    }).then(data => data)
+}
+
 export function deleteWorker(id: number): Promise<String | Response>{
     console.log(id);
     return fetch(`http://localhost:5000/worker/${id} `,{

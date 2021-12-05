@@ -30,6 +30,24 @@ router.post('/', function (req, res) {
   );
 });
 
+router.put('/', function (req, res) {
+  const id = req.body.id;
+  const firstName = req.body.firstName;
+  const otdelId = req.body.otdelId;
+  const otdelName = req.body.otdelName;
+  const secondName = req.body.secondName;
+  console.log(req);
+  bd.query(
+    `UPDATE workers SET firstName='${firstName}', secondName='${secondName}', otdelId='${otdelId}'
+            where id = ${id}`,
+    function (err, result) {
+      console.log(err);
+      console.log(result);
+      res.send(result);
+    },
+  );
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(req);
