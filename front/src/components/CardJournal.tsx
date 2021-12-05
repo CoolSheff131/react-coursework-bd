@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { deleteJournal, updateJournal, getDocuments, getWorkers } from "../api";
+import { updateJournal, getDocuments, getWorkers } from "../api";
 import Journal from "../Entities/Journal";
 import Document from "../Entities/Document";
 import Worker from "../Entities/Worker";
@@ -8,12 +8,13 @@ import { useState, useEffect } from "react";
 
 interface DocumentProp {
     journal: Journal
+    handleDelete(journal: Journal): void
 }
 function CardJournal(prop: DocumentProp) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [workers, setWorkers] = useState<Worker[]>([])
     const [documents, setDocuments] = useState<Document[]>([])
-    const { journal } = prop;
+    const { journal, handleDelete } = prop;
     useEffect(() => {
         getDocuments().then(data => {
             setDocuments(data);
@@ -29,7 +30,7 @@ function CardJournal(prop: DocumentProp) {
     }, [])
 
     const deleteHandle = () => {
-        deleteJournal(journal.id).then(result => { console.log(result) })
+        handleDelete(journal)
     }
     const handleClose = () => {
         setShowDialog(false);

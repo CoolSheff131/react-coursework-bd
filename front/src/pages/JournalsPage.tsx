@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
-import { createJournal, getDocuments, getJournals, getWorkers } from '../api'
+import { createJournal, deleteJournal, getDocuments, getJournals, getWorkers } from '../api'
 import CardJournal from '../components/CardJournal'
 import DialogJournal from '../components/DialogJournal'
 import Document from "../Entities/Document";
@@ -45,6 +45,11 @@ function JournalsPage() {
     const handleOpen = () => {
         setShowCreateDialog(true);
     }
+    const handleDelete = (journal: Journal) => {
+        deleteJournal(journal.id).then(result => { console.log(result) }).then(() => {
+            setJournals(journals?.filter(jour => jour !== journal))
+        })
+    }
 
     return (
         <div>
@@ -55,7 +60,7 @@ function JournalsPage() {
                 <DialogJournal title={'Добавление записи журнала'} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} workers={workers} documents={documents} />
                 <h1>Journals</h1>
                 <Row>
-                    {journals?.map(journal => <Col xs={6}><CardJournal journal={journal} /></Col>)}
+                    {journals?.map(journal => <Col xs={6}><CardJournal journal={journal} handleDelete={handleDelete} /></Col>)}
                 </Row>
             </Container>
         </div>
