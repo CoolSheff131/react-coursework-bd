@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
-import { deleteWorker, updateWorker, getOtdels } from "../api";
+import { updateWorker, getOtdels } from "../api";
 import Worker from "../Entities/Worker";
 import DialogWorker from "./DialogWorker";
 import Otdel from "../Entities/Otdel";
 
 interface DocumentProp {
     worker: Worker
+    handleDelete(worker: Worker): void
 }
 function CardWorker(prop: DocumentProp) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [otdels, setOtdels] = useState<Otdel[]>([]);
-    const { worker } = prop;
+    const { worker, handleDelete } = prop;
     useEffect(() => {
         getOtdels().then(data => {
             setOtdels(data);
@@ -21,7 +22,7 @@ function CardWorker(prop: DocumentProp) {
         }
     }, [])
     const deleteHandle = () => {
-        deleteWorker(worker.id).then(result => { console.log(result) })
+        handleDelete(worker)
     }
     const handleClose = () => {
         setShowDialog(false);

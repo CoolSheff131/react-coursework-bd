@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createtWorker, getOtdels, getWorkers } from "../api";
+import { createtWorker, deleteWorker, getOtdels, getWorkers } from "../api";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CardWorker from "../components/CardWorker";
 import Worker from "../Entities/Worker"
@@ -34,6 +34,12 @@ function WorkersPage() {
     const handleOpen = () => {
         setShowCreateDialog(true);
     }
+    const handleDelete = (worker: Worker) => {
+        deleteWorker(worker.id).then(result => { console.log(result) }).then(() => {
+            setWorkers(workers?.filter(wor => wor !== worker))
+        })
+
+    }
     return (
         <div>
             <Container>
@@ -43,7 +49,7 @@ function WorkersPage() {
                 </Button>
                 <DialogWorker title={"Добавление работника"} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} otdels={otdels} />
                 <Row>
-                    {workers?.map(worker => <Col xs={6}><CardWorker worker={worker} /></Col>)}
+                    {workers?.map(worker => <Col xs={6}><CardWorker worker={worker} handleDelete={handleDelete} /></Col>)}
                 </Row>
             </Container>
         </div>
