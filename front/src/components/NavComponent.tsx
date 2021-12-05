@@ -12,6 +12,7 @@ function NavComponent() {
                     <Link to="/organization" className="nav-link">organization</Link>
                     <Link to="/otdel" className="nav-link">otdel</Link>
                     <Link to="/worker" className="nav-link">worker</Link>
+                    <Link to="/report" className="nav-link">report</Link>
                 </Nav>
             </Container>
         </Navbar>

@@ -10,11 +10,12 @@ import OtdelsPage from './pages/OtdelsPage';
 import WorkersPage from './pages/WorkersPage';
 import DocumentsPage from './pages/DocumentsPage';
 import NavBar from './components/NavComponent';
+import ReportPage from './pages/ReportPage';
 
 function App() {
   return (
     <Router>
-      <div >
+      <div className="mb-4">
         <NavBar />
       </div>
       <Routes>
@@ -23,6 +24,7 @@ function App() {
         <Route path='/organization' element={<OrganizationsPage />} />
         <Route path='/otdel' element={<OtdelsPage />} />
         <Route path='/worker' element={<WorkersPage />} />
+        <Route path='/report' element={<ReportPage />} />
       </Routes>
     </Router>
   );

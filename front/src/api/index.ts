@@ -2,7 +2,26 @@ import Document from "../Entities/Document"
 import Journal from "../Entities/Journal"
 import Organization from "../Entities/Organization"
 import Otdel from "../Entities/Otdel"
+import Report1 from "../Entities/Report1"
+import Report2 from "../Entities/Report2"
+import Report3 from "../Entities/Report3"
 import Worker from "../Entities/Worker"
+
+export function getReport1(): Promise<Report1[]>{
+    return fetch('http://localhost:5000/report/archive').then(
+        data => data.json(),
+        error => {throw Error(error)})
+}
+export function getReport2(): Promise<Report2[]>{
+    return fetch('http://localhost:5000/report/onhands').then(
+        data => data.json(),
+        error => {throw Error(error)})
+}
+export function getReport3(): Promise<Report3[]>{
+    return fetch('http://localhost:5000/report/journal').then(
+        data => data.json(),
+        error => {throw Error(error)})
+}
 
 export function patchDocument(documentId:number,inArchive: boolean,workerId: number): Promise<Document[]>{
     return fetch('http://localhost:5000/document',{
