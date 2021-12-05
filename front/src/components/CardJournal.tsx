@@ -61,11 +61,11 @@ function CardJournal(prop: DocumentProp) {
                     <h6>Тип действия</h6>
                     {journal.actionType}
                 </Card.Text>
-                <ButtonGroup size="sm" >
-                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
-                    <Button variant="dark">Show</Button>
-                </ButtonGroup>
+
+                <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
+                <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
+
+
                 <DialogJournal title={'Изменение записи журнала'} show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} workers={workers} documents={documents} journal={journal} />
             </Card.Body>
         </Card>

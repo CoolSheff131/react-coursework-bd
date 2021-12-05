@@ -56,11 +56,10 @@ function CardOtdel(prop: DocumentProp) {
                     <h6>Телефон</h6>
                     {otdel.phone}
                 </Card.Text>
-                <ButtonGroup size="sm" >
-                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
-                    <Button variant="dark">Show</Button>
-                </ButtonGroup>
+
+                <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
+                <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
+
                 <DialogOtdel title={"Изменение отдела"} show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} organizations={organizations} otdel={otdel} />
             </Card.Body>
         </Card>

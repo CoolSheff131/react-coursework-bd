@@ -47,11 +47,10 @@ function CardWorker(prop: DocumentProp) {
             <Card.Body>
                 <h6>Отдел</h6>
                 <Card.Title>{worker.otdelName}</Card.Title>
-                <ButtonGroup size="sm" >
-                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
-                    <Button variant="dark">Show</Button>
-                </ButtonGroup>
+
+                <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
+                <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
+
                 <DialogWorker title={"Изменение работника"} show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} otdels={otdels} worker={worker} />
             </Card.Body>
         </Card>

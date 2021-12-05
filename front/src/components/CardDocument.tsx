@@ -53,11 +53,11 @@ function CardDocument(prop: DocumentProp) {
                     <h6>Год</h6>
                     {document.year}
                 </Card.Text>
-                <ButtonGroup size="sm" >
-                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
-                    <Button variant="dark">Show</Button>
-                </ButtonGroup>
+
+                <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
+                <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
+
+
                 <Button variant="dark" onClick={() => handlePatch()}>{document.inArchive ? 'Забрать' : 'Положить'}</Button>
                 <DialogDocument title="Изменение документа" show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={document} />
             </Card.Body>

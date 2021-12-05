@@ -48,11 +48,10 @@ function CardOrganization(prop: DocumentProp) {
                     <h6>Телефок</h6>
                     {organization.phone}
                 </Card.Text>
-                <ButtonGroup size="sm" >
-                    <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
-                    <Button variant="dark">Show</Button>
-                </ButtonGroup>
+
+                <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
+                <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
+
                 <DialogOrganization title="Изменение документа" show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} organization={organization} />
             </Card.Body>
         </Card>
