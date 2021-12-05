@@ -4,7 +4,7 @@ var bd = require('../bd');
 
 router.get('/', function (req, res) {
   bd.query(
-    `select workers.firstName, workers.otdelId, workers.secondName,
+    `select workers.id, workers.firstName, workers.otdelId, workers.secondName,
           otdel.name as otdelName from workers
           JOIN otdel on otdel.id = workers.otdelId`,
     function (err, result) {

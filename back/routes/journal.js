@@ -5,6 +5,7 @@ var bd = require('../bd');
 router.get('/', function (req, res) {
   bd.query(
     `select 
+    journal.id, 
   journal.actionType, 
   journal.documentId, 
   journal.workerId, 

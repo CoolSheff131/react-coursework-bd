@@ -1,13 +1,28 @@
 import { useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
-import { createJournal, getJournals } from '../api'
+import { createJournal, getDocuments, getJournals, getWorkers } from '../api'
 import CardJournal from '../components/CardJournal'
-import Journal from '../Entities/Journal'
+import DialogJournal from '../components/DialogJournal'
+import Document from "../Entities/Document";
+import Journal from "../Entities/Journal";
+import Worker from "../Entities/Worker";
+
 function JournalsPage() {
     const [journals, setJournals] = useState<Journal[]>()
+    const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
+    const [workers, setWorkers] = useState<Worker[]>([])
+    const [documents, setDocuments] = useState<Document[]>([])
     useEffect(() => {
         getJournals().then(data => {
             setJournals(data);
+        }).catch(err => console.log(err)
+        )
+        getDocuments().then(data => {
+            setDocuments(data);
+        }).catch(err => console.log(err)
+        )
+        getWorkers().then(data => {
+            setWorkers(data);
         }).catch(err => console.log(err)
         )
         return () => {
@@ -15,23 +30,29 @@ function JournalsPage() {
         }
     }, [])
 
-    const crtJournal = () => {
-        const jrn: Journal = {
-            actionType: '3',
-            documentNumber: 3,
-            documentId: 1,
-            workerId: 1,
-            id: 0
-        }
-        createJournal(jrn).then(result => { console.log(result) });
+
+    const handleClose = () => {
+        setShowCreateDialog(false);
+    }
+
+    const handleConfirm = (journal: Journal) => {
+        console.log(journal);
+
+        createJournal(journal).then(result => { console.log(result) });
+        setShowCreateDialog(false);
+    }
+
+    const handleOpen = () => {
+        setShowCreateDialog(true);
     }
 
     return (
         <div>
             <Container>
-                <Button variant="primary" size="lg" onClick={() => { crtJournal() }}>
+                <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateJournal
                 </Button>
+                <DialogJournal title={'Добавление записи журнала'} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} workers={workers} documents={documents} />
                 <h1>Journals</h1>
                 <Row>
                     {journals?.map(journal => <Col xs={6}><CardJournal journal={journal} /></Col>)}
