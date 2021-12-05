@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { deleteOrganization, updateOrganization } from "../api";
 import Organization from "../Entities/Organization";
 import DialogOrganization from "./DialogOrganization";

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { deleteOtdel, getOrganizations, updateOtdel } from "../api";
 import Otdel from "../Entities/Otdel";
 import Organization from "../Entities/Organization";

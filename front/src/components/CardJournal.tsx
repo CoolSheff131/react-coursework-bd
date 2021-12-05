@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { deleteJournal, updateJournal, getDocuments, getWorkers } from "../api";
 import Journal from "../Entities/Journal";
 import Document from "../Entities/Document";
