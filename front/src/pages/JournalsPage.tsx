@@ -8,7 +8,7 @@ import Journal from "../Entities/Journal";
 import Worker from "../Entities/Worker";
 
 function JournalsPage() {
-    const [journals, setJournals] = useState<Journal[]>()
+    const [journals, setJournals] = useState<Journal[]>([])
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
     const [workers, setWorkers] = useState<Worker[]>([])
     const [documents, setDocuments] = useState<Document[]>([])
@@ -38,7 +38,9 @@ function JournalsPage() {
     const handleConfirm = (journal: Journal) => {
         console.log(journal);
 
-        createJournal(journal).then(result => { console.log(result) });
+        createJournal(journal).then(result => { console.log(result) }).then(() => {
+            setJournals([...journals, journal])
+        });
         setShowCreateDialog(false);
     }
 
