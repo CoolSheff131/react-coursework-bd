@@ -11,7 +11,7 @@ router.get('/archive', function (req, res) {
 
 router.get('/onhands', function (req, res) {
   bd.query(
-    `select document.*, 
+    `select DISTINCT  document.*, 
   workers.firstName as workerFirstName, 
   workers.secondName as workersSecondName from document
   JOIN journal on document.id = journal.documentId
