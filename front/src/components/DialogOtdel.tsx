@@ -18,7 +18,7 @@ const DialogOtdel = (props: DialogOtdelProps) => {
         firstNameBoss: "",
         id: 0,
         name: "",
-        organizationId: 0,
+        organizationId: organizations[0]?.id || 1,
         organizationName: "",
         phone: "",
         secondNameBoss: ""

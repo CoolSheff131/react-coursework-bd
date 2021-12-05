@@ -14,6 +14,7 @@ function OtdelsPage() {
     useEffect(() => {
         getOtdels().then(data => {
             setOtdels(data);
+
         }).catch(err => console.log(err))
 
         getOrganizations().then(data => {
@@ -32,7 +33,6 @@ function OtdelsPage() {
 
     const handleConfirm = (otdel: Otdel) => {
         createtOtdel(otdel).then(result => { console.log(result) });
-        //createOrganization(organization).then(result => { console.log(result) });
         setShowCreateDialog(false);
     }
 

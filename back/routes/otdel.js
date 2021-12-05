@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var bd = require('../bd');
-// Home page route
 router.get('/', function (req, res) {
   bd.query(
     `select 
+          otdel.id,
           otdel.firstNameBoss, 
           otdel.name, 
           otdel.organizationId, 
@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
           JOIN organization on organization.id = otdel.organizationId `,
     function (err, result) {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       res.send(result);
     },
   );

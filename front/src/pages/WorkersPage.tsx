@@ -1,37 +1,47 @@
 import { useEffect, useState } from "react";
-import { createtWorker, getWorkers } from "../api";
+import { createtWorker, getOtdels, getWorkers } from "../api";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CardWorker from "../components/CardWorker";
 import Worker from "../Entities/Worker"
+import DialogWorker from "../components/DialogWorker";
+import Otdel from "../Entities/Otdel";
 
 function WorkersPage() {
     const [workers, setWorkers] = useState<Worker[]>()
+    const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
+    const [otdels, setOtdels] = useState<Otdel[]>([]);
     useEffect(() => {
         getWorkers().then(data => {
             setWorkers(data);
         }).catch(err => console.log(err)
         )
+        getOtdels().then(data => {
+            setOtdels(data);
+        }).catch(err => console.log(err))
         return () => {
 
         }
     }, [])
-    const crtWorker = () => {
-        const worker: Worker = {
-            firstName: "3",
-            id: 0,
-            otdelId: 1,
-            otdelName: "3",
-            secondName: "3"
-        }
+    const handleClose = () => {
+        setShowCreateDialog(false);
+    }
+
+    const handleConfirm = (worker: Worker) => {
         createtWorker(worker).then(result => { console.log(result) });
+        setShowCreateDialog(false);
+    }
+
+    const handleOpen = () => {
+        setShowCreateDialog(true);
     }
     return (
         <div>
             <Container>
                 <h1>Workers</h1>
-                <Button variant="primary" size="lg" onClick={() => { crtWorker() }}>
+                <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateWorker
                 </Button>
+                <DialogWorker title={"Добавление работника"} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} otdels={otdels} />
                 <Row>
                     {workers?.map(worker => <Col xs={6}><CardWorker worker={worker} /></Col>)}
                 </Row>
