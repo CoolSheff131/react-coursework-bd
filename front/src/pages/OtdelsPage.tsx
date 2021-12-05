@@ -7,7 +7,7 @@ import DialogOtdel from "../components/DialogOtdel";
 import Organization from "../Entities/Organization";
 
 function OtdelsPage() {
-    const [otdels, setOtdels] = useState<Otdel[]>()
+    const [otdels, setOtdels] = useState<Otdel[]>([])
     const [organizations, setOrganization] = useState<Organization[]>([])
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
 
@@ -32,8 +32,10 @@ function OtdelsPage() {
     }
 
     const handleConfirm = (otdel: Otdel) => {
-        createtOtdel(otdel).then(result => { console.log(result) });
-        setShowCreateDialog(false);
+        createtOtdel(otdel).then(result => { console.log(result) }).then(() => {
+            setOtdels([...otdels, otdel])
+            setShowCreateDialog(false);
+        });
     }
 
     const handleOpen = () => {
