@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { deleteDocument, patchDocument, updateDocument } from "../api";
+import { patchDocument, updateDocument } from "../api";
 import Document from "../Entities/Document";
 import DialogDocument from "./DialogDocument";
 
 interface DocumentProp {
     document: Document
+    handleDelete(document: Document): void
 }
 function CardDocument(prop: DocumentProp) {
+    const { handleDelete } = prop;
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [document, setDocument] = useState<Document>(prop.document)
     const deleteHandle = () => {
-        deleteDocument(document.id).then(result => { console.log(result) })
+        handleDelete(document)
     }
     const handleClose = () => {
         setShowDialog(false);

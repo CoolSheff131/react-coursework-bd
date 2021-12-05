@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
-import { createDocument, getDocuments } from '../api'
+import { createDocument, deleteDocument, getDocuments } from '../api'
 import CardDocument from '../components/CardDocument'
 import DialogDocument from '../components/DialogDocument'
 import Document from '../Entities/Document'
@@ -30,6 +30,11 @@ function DocumentsPage() {
     const handleOpen = () => {
         setShowCreateDialog(true);
     }
+    const handleDelete = (document: Document) => {
+        deleteDocument(document.id).then(() => {
+            setDocuments(documents?.filter(doc => doc !== document))
+        })
+    }
 
     return (
         <div>
@@ -40,7 +45,7 @@ function DocumentsPage() {
                 <DialogDocument title="Добавление документа" show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} />
                 <h1>Documents</h1>
                 <Row>
-                    {documents?.map(document => <Col xs={6}><CardDocument document={document} /></Col>)}
+                    {documents?.map(document => <Col xs={6}><CardDocument document={document} handleDelete={handleDelete} /></Col>)}
                 </Row>
             </Container>
 
