@@ -65,6 +65,16 @@ export function createOrganization(organization: Organization): Promise<String |
     }).then(data => data)
 }
 
+export function updateOrganization(organization: Organization): Promise<String | Response>{
+    return fetch('http://localhost:5000/organization',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(organization)
+    }).then(data => data)
+}
+
 export function deleteOrganization(id: number): Promise<String | Response>{
     console.log(id);
     return fetch(`http://localhost:5000/organization/${id} `,{

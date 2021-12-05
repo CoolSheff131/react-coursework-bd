@@ -26,6 +26,26 @@ router.post('/', (req, res) => {
   );
 });
 
+router.put('/', function (req, res) {
+  const id = req.body.id;
+  const addressIndex = req.body.addressIndex;
+  const city = req.body.city;
+  const email = req.body.email;
+  const faks = req.body.faks;
+  const name = req.body.name;
+  const phone = req.body.phone;
+  console.log(req);
+  bd.query(
+    `UPDATE organization SET addressIndex = '${addressIndex}', city='${city}', email='${email}', faks='${faks}', name='${name}', phone='${phone}'
+            where id = ${id}`,
+    function (err, result) {
+      console.log(err);
+      console.log(result);
+      res.send(result);
+    },
+  );
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(req);
