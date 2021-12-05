@@ -7,7 +7,7 @@ import DialogWorker from "../components/DialogWorker";
 import Otdel from "../Entities/Otdel";
 
 function WorkersPage() {
-    const [workers, setWorkers] = useState<Worker[]>()
+    const [workers, setWorkers] = useState<Worker[]>([])
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
     const [otdels, setOtdels] = useState<Otdel[]>([]);
     useEffect(() => {
@@ -27,8 +27,10 @@ function WorkersPage() {
     }
 
     const handleConfirm = (worker: Worker) => {
-        createtWorker(worker).then(result => { console.log(result) });
-        setShowCreateDialog(false);
+        createtWorker(worker).then(result => { console.log(result) }).then(() => {
+            setWorkers([...workers, worker])
+            setShowCreateDialog(false);
+        });
     }
 
     const handleOpen = () => {
