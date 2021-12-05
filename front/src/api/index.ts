@@ -20,6 +20,16 @@ export function createDocument(document: Document): Promise<String | Response>{
     }).then(data => data)
 }
 
+export function updateDocument(document: Document): Promise<String | Response>{
+    return fetch('http://localhost:5000/document',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(document)
+    }).then(data => data)
+}
+
 export function deleteDocument(id: number): Promise<String | Response>{
     console.log(id);
     return fetch(`http://localhost:5000/document/${id} `,{

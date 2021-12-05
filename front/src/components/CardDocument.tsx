@@ -1,15 +1,37 @@
+import { useState } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { deleteDocument } from "../api";
+import { deleteDocument, updateDocument } from "../api";
 import Document from "../Entities/Document";
+import DialogDocument from "./DialogDocument";
 
 interface DocumentProp {
     document: Document
 }
 function CardDocument(prop: DocumentProp) {
+    const [showDialog, setShowDialog] = useState<boolean>(false);
     const { document } = prop;
     const deleteHandle = () => {
         deleteDocument(document.id).then(result => { console.log(result) })
     }
+    const handleClose = () => {
+        setShowDialog(false);
+    }
+
+    const handleConfirm = (changeDoc: Document) => {
+        const c: Document = {
+            ...changeDoc,
+
+            id: document.id,
+        }
+        updateDocument(c).then(result => { console.log(result) });
+        setShowDialog(false);
+    }
+
+    const handleOpen = () => {
+        setShowDialog(true);
+    }
+
+
     return (
         <Card border="dark">
             <Card.Header as="h5">{document.name}</Card.Header>
@@ -30,9 +52,10 @@ function CardDocument(prop: DocumentProp) {
                 </Card.Text>
                 <ButtonGroup size="sm" >
                     <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
-                    <Button variant="dark">Change</Button>
+                    <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
                     <Button variant="dark">Show</Button>
                 </ButtonGroup>
+                <DialogDocument title="Изменение документа" show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={document} />
             </Card.Body>
         </Card>
     )
