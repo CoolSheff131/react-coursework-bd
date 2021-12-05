@@ -6,7 +6,7 @@ import DialogDocument from '../components/DialogDocument'
 import Document from '../Entities/Document'
 function DocumentsPage() {
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
-    const [documents, setDocuments] = useState<Document[]>()
+    const [documents, setDocuments] = useState<Document[]>([])
     useEffect(() => {
         getDocuments().then(data => {
             setDocuments(data);
@@ -23,7 +23,9 @@ function DocumentsPage() {
     }
 
     const handleConfirm = (document: Document) => {
-        createDocument(document).then(result => { console.log(result) });
+        createDocument(document).then(result => { console.log(result) }).then(() => {
+            setDocuments([...documents, document])
+        });
         setShowCreateDialog(false);
     }
 
