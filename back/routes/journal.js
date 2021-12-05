@@ -37,6 +37,23 @@ router.post('/', function (req, res) {
   );
 });
 
+router.put('/', function (req, res) {
+  const id = req.body.id;
+  const actionType = req.body.actionType;
+  const documentId = req.body.documentId;
+  const workerId = req.body.workerId;
+  console.log(req);
+  bd.query(
+    `UPDATE journal SET actionType='${actionType}', documentId='${documentId}', workerId='${workerId}'
+            where id = ${id}`,
+    function (err, result) {
+      console.log(err);
+      console.log(result);
+      res.send(result);
+    },
+  );
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   console.log(req);

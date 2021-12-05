@@ -52,6 +52,17 @@ export function createJournal(journal: Journal): Promise<String | Response>{
         body: JSON.stringify(journal)
     }).then(data => data)
 }
+
+export function updateJournal(journal: Journal): Promise<String | Response>{
+    return fetch('http://localhost:5000/journal',{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(journal)
+    }).then(data => data)
+}
+
 export function deleteJournal(id: number): Promise<String | Response>{
     console.log(id);
     return fetch(`http://localhost:5000/journal/${id} `,{
