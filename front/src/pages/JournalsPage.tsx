@@ -40,8 +40,8 @@ function JournalsPage() {
 
         createJournal(journal).then(result => { console.log(result) }).then(() => {
             setJournals([...journals, journal])
+            setShowCreateDialog(false);
         });
-        setShowCreateDialog(false);
     }
 
     const handleOpen = () => {

@@ -25,8 +25,8 @@ function DocumentsPage() {
     const handleConfirm = (document: Document) => {
         createDocument(document).then(result => { console.log(result) }).then(() => {
             setDocuments([...documents, document])
+            setShowCreateDialog(false);
         });
-        setShowCreateDialog(false);
     }
 
     const handleOpen = () => {

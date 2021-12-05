@@ -6,7 +6,7 @@ import DialogOrganization from "../components/DialogOrganization";
 import Organization from "../Entities/Organization"
 
 function OrganizationsPage() {
-    const [organizations, setOrganiaions] = useState<Organization[]>()
+    const [organizations, setOrganiaions] = useState<Organization[]>([])
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
 
     useEffect(() => {
@@ -24,8 +24,10 @@ function OrganizationsPage() {
     }
 
     const handleConfirm = (organization: Organization) => {
-        createOrganization(organization).then(result => { console.log(result) });
-        setShowCreateDialog(false);
+        createOrganization(organization).then(result => { console.log(result) }).then(() => {
+            setOrganiaions([...organizations, organization])
+            setShowCreateDialog(false);
+        });
     }
 
     const handleOpen = () => {
