@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { deleteOtdel, getOrganizations, updateOtdel } from "../api";
+import { getOrganizations, updateOtdel } from "../api";
 import Otdel from "../Entities/Otdel";
 import Organization from "../Entities/Organization";
 import DialogOtdel from "../components/DialogOtdel";
@@ -7,11 +7,12 @@ import { useState, useEffect } from "react";
 
 interface DocumentProp {
     otdel: Otdel
+    handleDelete(otdel: Otdel): void
 }
 function CardOtdel(prop: DocumentProp) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [organizations, setOrganization] = useState<Organization[]>([])
-    const { otdel } = prop;
+    const { otdel, handleDelete } = prop;
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ function CardOtdel(prop: DocumentProp) {
     }, [])
 
     const deleteHandle = () => {
-        deleteOtdel(otdel.id).then(result => { console.log(result) })
+        handleDelete(otdel)
     }
     const handleClose = () => {
         setShowDialog(false);

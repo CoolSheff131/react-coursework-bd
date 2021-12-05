@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createtOtdel, getOrganizations, getOtdels } from "../api";
+import { createtOtdel, deleteOtdel, getOrganizations, getOtdels } from "../api";
 import Otdel from "../Entities/Otdel";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CardOtdel from "../components/CardOtdel";
@@ -40,6 +40,12 @@ function OtdelsPage() {
         setShowCreateDialog(true);
     }
 
+    const handleDelete = (otdel: Otdel) => {
+        deleteOtdel(otdel.id).then(result => { console.log(result) }).then(() => {
+            setOtdels(otdels?.filter(otd => otd !== otdel))
+        })
+    }
+
     return (
         <div>
             <Container>
@@ -49,7 +55,7 @@ function OtdelsPage() {
                 </Button>
                 <DialogOtdel title={"Добавление отдела"} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} organizations={organizations} />
                 <Row>
-                    {otdels?.map(otdel => <Col xs={6}><CardOtdel otdel={otdel} /></Col>)}
+                    {otdels?.map(otdel => <Col xs={6}><CardOtdel otdel={otdel} handleDelete={handleDelete} /></Col>)}
                 </Row>
             </Container>
         </div>

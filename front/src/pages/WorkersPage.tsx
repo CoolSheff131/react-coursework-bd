@@ -38,7 +38,6 @@ function WorkersPage() {
         deleteWorker(worker.id).then(result => { console.log(result) }).then(() => {
             setWorkers(workers?.filter(wor => wor !== worker))
         })
-
     }
     return (
         <div>
