@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { createOrganization, getOrganizations } from "../api";
+import { createOrganization, deleteOrganization, getOrganizations } from "../api";
 import CardOrganization from "../components/CardOrganization";
 import DialogOrganization from "../components/DialogOrganization";
 import Organization from "../Entities/Organization"
@@ -32,6 +32,12 @@ function OrganizationsPage() {
         setShowCreateDialog(true);
     }
 
+    const handleDelete = (organization: Organization) => {
+        deleteOrganization(organization.id).then(result => { console.log(result) }).then(() => {
+            setOrganiaions(organizations?.filter(org => org !== organization))
+        })
+    }
+
     return (
         <div>
             <Container>
@@ -41,7 +47,7 @@ function OrganizationsPage() {
                 </Button>
                 <DialogOrganization title="Добавление документа" show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} />
                 <Row>
-                    {organizations?.map(organization => <Col xs={6}><CardOrganization organization={organization} /></Col>)}
+                    {organizations?.map(organization => <Col xs={6}><CardOrganization organization={organization} handleDelete={handleDelete} /></Col>)}
                 </Row>
             </Container>
         </div>

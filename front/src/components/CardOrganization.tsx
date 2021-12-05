@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { deleteOrganization, updateOrganization } from "../api";
+import { updateOrganization } from "../api";
 import Organization from "../Entities/Organization";
 import DialogOrganization from "./DialogOrganization";
 
 interface DocumentProp {
     organization: Organization
+    handleDelete(organization: Organization): void
 }
 function CardOrganization(prop: DocumentProp) {
     const [showDialog, setShowDialog] = useState<boolean>(false);
-    const { organization } = prop;
+    const { organization, handleDelete } = prop;
+
     const deleteHandle = () => {
-        deleteOrganization(organization.id).then(result => { console.log(result) })
+        handleDelete(organization)
     }
 
     const handleClose = () => {
