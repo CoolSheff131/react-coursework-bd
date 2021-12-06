@@ -5,8 +5,6 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import { unSetUser } from '../store/action-creators/user';
 
 function NavComponent() {
-    //localStorage.setItem("userRole", data.role)
-    //const userName = localStorage.getItem("userName")
     const { login } = useTypedSelector(state => state.user)
     const navigate = useNavigate();
     const dispatch = useDispatch()

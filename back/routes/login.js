@@ -16,14 +16,19 @@ router.post('/', (req, res) => {
     res.send({ login: 'ARCHIVE', password: '', role: 'ARCHIVE' });
   } else {
     bd.query(
-      `select * from workers
-              WHERE firstName = ${req.body.login} AND secondName = ${req.body.password}`,
+      `select distinct * from workers
+              WHERE firstName = '${req.body.login}' AND secondName = '${req.body.password}'`,
       function (err, result) {
         console.log(result);
         if (err || result.length === 0) {
           res.send({ login: 'ERR', password: 'ERR', role: 'ERR' });
         } else {
-          res.send(result);
+          console.log(result[0]);
+          res.send({
+            login: result[0].firstName + ' ' + result[0].secondName,
+            password: '',
+            role: 'WORKER',
+          });
         }
       },
     );
