@@ -15,10 +15,7 @@ function CardDocument(prop: DocumentProp) {
     const [document, setDocument] = useState<Document>(prop.document)
     const { role, workerId } = useTypedSelector(state => state.user)
     const [canReturn, setCanReturn] = useState<boolean>(false)
-    console.log('inArch' +
-        !document.inArchive);
-    console.log('canReturn' +
-        canReturn);
+
     useEffect(() => {
         if (!document.inArchive) {
             findWorkerWithDocument(document.id).then((workerHandling) => {
@@ -83,7 +80,7 @@ function CardDocument(prop: DocumentProp) {
                 <Button variant="dark" onClick={() => deleteHandle()}>Delete</Button>
                 <Button variant="dark" onClick={() => handleOpen()}>Change</Button>
 
-                {(role === "WORKER" || role === "ADMIN") && <Button disabled={!document.inArchive && !canReturn} variant="dark" onClick={() => handlePatch()}>{document.inArchive ? 'Забрать' : 'Положить'}</Button>}
+                {(role === "WORKER") && <Button disabled={!document.inArchive && !canReturn} variant="dark" onClick={() => handlePatch()}>{document.inArchive ? 'Забрать' : 'Положить'}</Button>}
 
                 <DialogDocument title="Изменение документа" show={showDialog} handleClose={handleClose} handleConfirm={handleConfirm} document={document} />
             </Card.Body>

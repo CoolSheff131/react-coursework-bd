@@ -6,12 +6,14 @@ import DialogJournal from '../components/DialogJournal'
 import Document from "../Entities/Document";
 import Journal from "../Entities/Journal";
 import Worker from "../Entities/Worker";
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 function JournalsPage() {
     const [journals, setJournals] = useState<Journal[]>([])
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
     const [workers, setWorkers] = useState<Worker[]>([])
     const [documents, setDocuments] = useState<Document[]>([])
+    const { role } = useTypedSelector(state => state.user)
     useEffect(() => {
         getJournals().then(data => {
             setJournals(data);
@@ -56,9 +58,10 @@ function JournalsPage() {
     return (
         <div>
             <Container>
-                <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
+                {(role === "ARCHIVE" || role === "ADMIN") && <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateJournal
                 </Button>
+                }
                 <DialogJournal title={'Добавление записи журнала'} show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} workers={workers} documents={documents} />
                 <h1>Journals</h1>
                 <Row>

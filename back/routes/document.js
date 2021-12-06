@@ -7,14 +7,19 @@ router.get('/find/:id', function (req, res) {
   if (id !== undefined) {
     bd.query(
       `select 
-    workers.id as workerHandlingId from journal
+    workers.id as workerHandlingId,
+    journal.id,
+    document.id as docId from journal
     JOIN workers on workers.id = journal.workerId
     JOIN document on document.id = journal.documentId
-    where document.id = ${id} and document.inArchive = 0`,
+    where document.id = ${id} and document.inArchive = 0
+    ORDER BY journal.id DESC `,
       function (err, result) {
+        console.log('err');
         console.log(err);
         if (err) throw err;
         console.log(result);
+        console.log(result[0]);
         res.send({ workerHandlingId: result[0].workerHandlingId });
       },
     );
