@@ -13,6 +13,7 @@ function NavComponent() {
                     <Link to="/otdel" className="nav-link">otdel</Link>
                     <Link to="/worker" className="nav-link">worker</Link>
                     <Link to="/report" className="nav-link">report</Link>
+                    <Link to="/login" className="nav-link">login</Link>
                 </Nav>
             </Container>
         </Navbar>

@@ -11,6 +11,7 @@ import WorkersPage from './pages/WorkersPage';
 import DocumentsPage from './pages/DocumentsPage';
 import NavBar from './components/NavComponent';
 import ReportPage from './pages/ReportPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/otdel' element={<OtdelsPage />} />
         <Route path='/worker' element={<WorkersPage />} />
         <Route path='/report' element={<ReportPage />} />
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
     </Router>
   );
