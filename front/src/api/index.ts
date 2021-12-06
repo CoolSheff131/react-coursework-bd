@@ -1,11 +1,32 @@
 import Document from "../Entities/Document"
 import Journal from "../Entities/Journal"
+import { LoginResponse } from "../Entities/LoginResponse"
 import Organization from "../Entities/Organization"
 import Otdel from "../Entities/Otdel"
 import Report1 from "../Entities/Report1"
 import Report2 from "../Entities/Report2"
 import Report3 from "../Entities/Report3"
 import Worker from "../Entities/Worker"
+
+export function signIn(login: string, password: string): Promise<LoginResponse>{
+    return fetch('http://localhost:5000/login',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify({
+            login,
+            password
+        })
+    }).then(
+        data => {
+            console.log(data);
+            
+            return data.json()
+        },
+        error => {throw Error(error)}
+    )
+}
 
 export function getReport1(): Promise<Report1[]>{
     return fetch('http://localhost:5000/report/archive').then(

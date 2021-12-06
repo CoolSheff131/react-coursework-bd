@@ -1,7 +1,9 @@
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 function NavComponent() {
+    //localStorage.setItem("userRole", data.role)
+    const userName = localStorage.getItem("userName")
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
@@ -13,8 +15,12 @@ function NavComponent() {
                     <Link to="/otdel" className="nav-link">otdel</Link>
                     <Link to="/worker" className="nav-link">worker</Link>
                     <Link to="/report" className="nav-link">report</Link>
-                    <Link to="/login" className="nav-link">login</Link>
+
                 </Nav>
+                {userName ? <NavDropdown title="Link" id="navbarScrollingDropdown">
+                    <NavDropdown.Item >Выйти</NavDropdown.Item>
+                </NavDropdown> : <Link to="/login" className="nav-link">login</Link>}
+
             </Container>
         </Navbar>
     )

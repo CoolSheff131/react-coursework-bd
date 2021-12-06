@@ -4,6 +4,7 @@ var organization = require('./routes/organization');
 var otdel = require('./routes/otdel');
 var workers = require('./routes/workers');
 var report = require('./routes/report');
+var login = require('./routes/login');
 const express = require('express');
 var cors = require('cors');
 const app = express();
@@ -16,6 +17,7 @@ app.use('/organization', organization);
 app.use('/otdel', otdel);
 app.use('/worker', workers);
 app.use('/report', report);
+app.use('/login', login);
 // app.get('/', (request, response) => {
 
 // });
