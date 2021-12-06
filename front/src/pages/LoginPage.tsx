@@ -16,12 +16,7 @@ const LoginPage = () => {
     const dispatch = useDispatch()
 
     const handleConfirm = (userData: UserData) => {
-        console.log("login", "password");
-        console.log(userData);
-
         signIn(userData.login, userData.password).then((data) => {
-            console.log(data);
-
             if (data.role !== 'ERR') {
                 dispatch(setUser(data))
                 navigate('/document')

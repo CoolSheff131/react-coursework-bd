@@ -2,6 +2,25 @@ var express = require('express');
 var router = express.Router();
 var bd = require('../bd');
 
+router.get('/find/:id', function (req, res) {
+  const { id } = req.params;
+  if (id !== undefined) {
+    bd.query(
+      `select 
+    workers.id as workerHandlingId from journal
+    JOIN workers on workers.id = journal.workerId
+    JOIN document on document.id = journal.documentId
+    where document.id = ${id} and document.inArchive = 0`,
+      function (err, result) {
+        console.log(err);
+        if (err) throw err;
+        console.log(result);
+        res.send({ workerHandlingId: result[0].workerHandlingId });
+      },
+    );
+  }
+});
+
 router.get('/', function (req, res) {
   bd.query('select * from document', function (err, result) {
     if (err) throw err;

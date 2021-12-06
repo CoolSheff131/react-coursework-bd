@@ -7,8 +7,10 @@ import Table1Report3 from "../components/TableReport3";
 import Report1 from "../Entities/Report1";
 import Report2 from "../Entities/Report2";
 import Report3 from "../Entities/Report3";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const ReportPage = () => {
+    const { role } = useTypedSelector(state => state.user)
     const [reports1, setReports1] = useState<Report1[]>([])
     const [reports2, setReports2] = useState<Report2[]>([])
     const [reports3, setReports3] = useState<Report3[]>([])
@@ -45,17 +47,18 @@ const ReportPage = () => {
     return (
         <Container>
             <Nav variant="tabs" defaultActiveKey="/home">
-                <Nav.Item>
+                {(role === "ARCHIVE" || role === "WORKER" || role === "ADMIN") && <Nav.Item>
                     <Nav.Link onClick={handleClickShowReport1} >Список архивных документов</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
+                </Nav.Item>}
+                {(role === "ARCHIVE" || role === "ADMIN") && <Nav.Item>
                     <Nav.Link onClick={handleClickShowReport2}>Список архивных документов, находящихся на руках</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
+                </Nav.Item>}
+                {(role === "ARCHIVE" || role === "ADMIN") && <Nav.Item>
                     <Nav.Link onClick={handleClickShowReport3}>
                         Журнал регистрации выдачи и возврата документов
                     </Nav.Link>
                 </Nav.Item>
+                }
             </Nav>
             {reportsToShow === 1 && <Table1Report1 reports={reports1} />}
             {reportsToShow === 2 && <Table1Report2 reports={reports2} />}

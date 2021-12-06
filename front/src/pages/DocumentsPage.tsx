@@ -4,9 +4,11 @@ import { createDocument, deleteDocument, getDocuments } from '../api'
 import CardDocument from '../components/CardDocument'
 import DialogDocument from '../components/DialogDocument'
 import Document from '../Entities/Document'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 function DocumentsPage() {
     const [showCreateDialog, setShowCreateDialog] = useState<boolean>(false);
     const [documents, setDocuments] = useState<Document[]>([])
+    const { role } = useTypedSelector(state => state.user)
     useEffect(() => {
         getDocuments().then(data => {
             setDocuments(data);
@@ -41,9 +43,10 @@ function DocumentsPage() {
     return (
         <div>
             <Container>
-                <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
+                {(role === "ARCHIVE" || role === "ADMIN") && <Button variant="primary" size="lg" onClick={() => { handleOpen() }}>
                     CreateDocument
-                </Button>
+                </Button>}
+
                 <DialogDocument title="Добавление документа" show={showCreateDialog} handleClose={handleClose} handleConfirm={handleConfirm} />
                 <h1>Documents</h1>
                 <Row>

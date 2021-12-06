@@ -21,7 +21,9 @@ const DialogJournal = (props: DialogJournalProps) => {
         documentNumber: 0,
         documentId: documents[0]?.id || 1,
         workerId: workers[0]?.id || 1,
-        id: 0
+        id: 0,
+        workerFirstName: "",
+        workersSecondName: ""
     }
     console.log(workers);
 

@@ -3,5 +3,7 @@ export default interface Journal{
     documentNumber: number;
     documentId: number;
     workerId: number;
+    workerFirstName: string;
+    workersSecondName: string;
     id: number;
 }

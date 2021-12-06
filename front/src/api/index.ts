@@ -7,6 +7,15 @@ import Report2 from "../Entities/Report2"
 import Report3 from "../Entities/Report3"
 import { UserData } from "../Entities/UserData"
 import Worker from "../Entities/Worker"
+import { WorkerHandling } from "../Entities/WorkerHandlingId"
+
+export function findWorkerWithDocument(documentId: number): Promise<WorkerHandling>{
+    console.log(`documentId ${documentId}`);
+    
+    return fetch(`http://localhost:5000/document/find/${documentId}`).then(
+        data => data.json(),
+        error => {throw Error(error)})
+}
 
 export function signIn(login: string, password: string): Promise<UserData>{
     return fetch('http://localhost:5000/login',{

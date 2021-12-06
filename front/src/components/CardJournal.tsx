@@ -58,7 +58,7 @@ function CardJournal(prop: DocumentProp) {
                 <Card.Title>{journal.documentId}</Card.Title>
                 <Card.Text>
                     <h6>ФИО Работника</h6>
-                    {journal.workerId}
+                    {journal.workerFirstName} {journal.workersSecondName}
                     <h6>Тип действия</h6>
                     {journal.actionType}
                 </Card.Text>

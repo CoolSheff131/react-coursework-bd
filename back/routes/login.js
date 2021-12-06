@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
             login: result[0].firstName + ' ' + result[0].secondName,
             password: '',
             role: 'WORKER',
+            workerId: result[0].id,
           });
         }
       },
