@@ -1,14 +1,14 @@
 import Document from "../Entities/Document"
 import Journal from "../Entities/Journal"
-import { LoginResponse } from "../Entities/LoginResponse"
 import Organization from "../Entities/Organization"
 import Otdel from "../Entities/Otdel"
 import Report1 from "../Entities/Report1"
 import Report2 from "../Entities/Report2"
 import Report3 from "../Entities/Report3"
+import { UserData } from "../Entities/UserData"
 import Worker from "../Entities/Worker"
 
-export function signIn(login: string, password: string): Promise<LoginResponse>{
+export function signIn(login: string, password: string): Promise<UserData>{
     return fetch('http://localhost:5000/login',{
         method: 'POST',
         headers: {

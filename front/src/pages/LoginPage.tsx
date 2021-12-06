@@ -1,18 +1,19 @@
 import { Formik } from "formik";
 import { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../api";
+import { UserData } from "../Entities/UserData";
+import { setUser } from "../store/action-creators/user";
 
 
-interface UserData {
-    login: string;
-    password: string;
-}
+
 const LoginPage = () => {
-    const a: UserData = { login: '', password: '' }
+    const a: UserData = { login: '', password: '', role: '' }
     const navigate = useNavigate();
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
+    const dispatch = useDispatch()
 
     const handleConfirm = (userData: UserData) => {
         console.log("login", "password");
@@ -22,8 +23,7 @@ const LoginPage = () => {
             console.log(data);
 
             if (data.role !== 'ERR') {
-                localStorage.setItem("userRole", data.role)
-                localStorage.setItem("userName", data.name)
+                dispatch(setUser(data))
                 navigate('/document')
             } else {
                 setIsInvalid(true)

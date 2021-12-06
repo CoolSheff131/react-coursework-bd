@@ -1,9 +1,19 @@
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { unSetUser } from '../store/action-creators/user';
 
 function NavComponent() {
     //localStorage.setItem("userRole", data.role)
-    const userName = localStorage.getItem("userName")
+    //const userName = localStorage.getItem("userName")
+    const { login } = useTypedSelector(state => state.user)
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const handleLogout = () => {
+        dispatch(unSetUser());
+        navigate('/login')
+    }
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
@@ -17,8 +27,8 @@ function NavComponent() {
                     <Link to="/report" className="nav-link">report</Link>
 
                 </Nav>
-                {userName ? <NavDropdown title="Link" id="navbarScrollingDropdown">
-                    <NavDropdown.Item >Выйти</NavDropdown.Item>
+                {login ? <NavDropdown title={login} id="navbarScrollingDropdown">
+                    <NavDropdown.Item onClick={handleLogout}>Выйти</NavDropdown.Item>
                 </NavDropdown> : <Link to="/login" className="nav-link">login</Link>}
 
             </Container>
