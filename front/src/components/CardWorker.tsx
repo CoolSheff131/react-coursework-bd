@@ -44,7 +44,7 @@ function CardWorker(prop: DocumentProp) {
 
     return (
         <Card border="dark">
-            <Card.Header as="h5">{worker.firstName + worker.secondName}</Card.Header>
+            <Card.Header as="h5">{worker.firstName} {worker.secondName}</Card.Header>
             <Card.Body>
                 <h6>Отдел</h6>
                 <Card.Title>{worker.otdelName}</Card.Title>
