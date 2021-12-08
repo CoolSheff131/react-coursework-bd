@@ -18,9 +18,7 @@ app.use('/otdel', otdel);
 app.use('/worker', workers);
 app.use('/report', report);
 app.use('/login', login);
-// app.get('/', (request, response) => {
 
-// });
 app.listen(port, (err) => {
   if (err) {
     return console.log('something bad happened', err);

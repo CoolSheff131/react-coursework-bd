@@ -46,15 +46,15 @@ const ReportPage = () => {
 
     return (
         <Container>
-            <Nav variant="tabs" defaultActiveKey="/home">
+            <Nav variant="tabs" defaultActiveKey="report1">
                 {(role === "ARCHIVE" || role === "WORKER" || role === "ADMIN") && <Nav.Item>
-                    <Nav.Link onClick={handleClickShowReport1} >Список архивных документов</Nav.Link>
+                    <Nav.Link eventKey="report1" onClick={handleClickShowReport1} >Список архивных документов</Nav.Link>
                 </Nav.Item>}
                 {(role === "ARCHIVE" || role === "ADMIN") && <Nav.Item>
-                    <Nav.Link onClick={handleClickShowReport2}>Список архивных документов, находящихся на руках</Nav.Link>
+                    <Nav.Link eventKey="report2" onClick={handleClickShowReport2}>Список архивных документов, находящихся на руках</Nav.Link>
                 </Nav.Item>}
                 {(role === "ARCHIVE" || role === "ADMIN") && <Nav.Item>
-                    <Nav.Link onClick={handleClickShowReport3}>
+                    <Nav.Link eventKey="report3" onClick={handleClickShowReport3}>
                         Журнал регистрации выдачи и возврата документов
                     </Nav.Link>
                 </Nav.Item>
