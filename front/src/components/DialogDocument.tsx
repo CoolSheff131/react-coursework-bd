@@ -1,7 +1,7 @@
 import { FormikProps, withFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
 import Document from "../Entities/Document";
-
+import * as Yup from 'yup';
 
 
 interface FormValues {
@@ -14,6 +14,25 @@ interface FormValues {
     type: string;
     year: number;
 }
+
+const SignupSchema = Yup.object().shape({
+    number: Yup.number().typeError('Вы должны ввести число')
+        .required('Необходимо заполнить поле').positive('Число должны быть больше нуля').integer().typeError('Число должно быть целым'),
+    firstNameAuthor: Yup.string()
+        .required('Необходимо заполнить поле'),
+    name: Yup.string().required('Необходимо заполнить поле'),
+    organizationName: Yup.string()
+        .required('Необходимо заполнить поле'),
+    pageCount: Yup.number().typeError('Вы должны ввести число')
+        .required('Необходимо заполнить поле').positive('Число должны быть больше нуля').integer().typeError('Число должно быть целым'),
+    secondNameAuthor: Yup.string()
+        .required('Необходимо заполнить поле'),
+    type: Yup.string()
+        .required('Необходимо заполнить поле'),
+    year: Yup.number().typeError('Вы должны ввести число')
+        .required('Необходимо заполнить поле').positive('Число должны быть больше нуля').integer().typeError('Число должно быть целым'),
+});
+
 interface MyFormProps {
     document?: Document
     handleConfirm(document: Document): void;
@@ -23,41 +42,66 @@ const DialogDocumentForm = (props: FormikProps<FormValues>) => {
     const {
         values,
         handleChange,
+        errors,
         handleSubmit,
     } = props;
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Номер</Form.Label>
-                <Form.Control placeholder="1234" onChange={handleChange} name="number" value={values.number} />
+                <Form.Control placeholder="1234" onChange={handleChange} name="number" value={values.number} isInvalid={!!errors.number} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.number}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Название</Form.Label>
-                <Form.Control placeholder="QR-код для входа" onChange={handleChange} name="name" value={values.name} />
+                <Form.Control isInvalid={!!errors.name} placeholder="QR-код для входа" onChange={handleChange} name="name" value={values.name} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Название организации</Form.Label>
-                <Form.Control placeholder="Doofenshmirtz Evil Incorporated" onChange={handleChange} name="organizationName" value={values.organizationName} />
+                <Form.Control isInvalid={!!errors.organizationName} placeholder="Doofenshmirtz Evil Incorporated" onChange={handleChange} name="organizationName" value={values.organizationName} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.organizationName}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Количество страниц</Form.Label>
-                <Form.Control placeholder="1" onChange={handleChange} name="pageCount" value={values.pageCount} />
+                <Form.Control isInvalid={!!errors.pageCount} placeholder="1" onChange={handleChange} name="pageCount" value={values.pageCount} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.pageCount}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Тип</Form.Label>
-                <Form.Control placeholder="письмо, счет..." onChange={handleChange} name="type" value={values.type} />
+                <Form.Control isInvalid={!!errors.type} placeholder="письмо, счет..." onChange={handleChange} name="type" value={values.type} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.type}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Год</Form.Label>
-                <Form.Control placeholder="2024" onChange={handleChange} name="year" value={values.year} />
+                <Form.Control isInvalid={!!errors.year} placeholder="2024" onChange={handleChange} name="year" value={values.year} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.year}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Имя автора</Form.Label>
-                <Form.Control placeholder="Павел" onChange={handleChange} name="firstNameAuthor" value={values.firstNameAuthor} />
+                <Form.Control isInvalid={!!errors.firstNameAuthor} placeholder="Павел" onChange={handleChange} name="firstNameAuthor" value={values.firstNameAuthor} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.firstNameAuthor}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Фамилия автора</Form.Label>
-                <Form.Control placeholder="Петров" onChange={handleChange} name="secondNameAuthor" value={values.secondNameAuthor} />
+                <Form.Control isInvalid={!!errors.secondNameAuthor} placeholder="Петров" onChange={handleChange} name="secondNameAuthor" value={values.secondNameAuthor} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.secondNameAuthor}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Button variant="primary" type="submit">
@@ -66,6 +110,8 @@ const DialogDocumentForm = (props: FormikProps<FormValues>) => {
         </Form>
     )
 }
+
+
 
 const Forms = withFormik<MyFormProps, FormValues>({
     mapPropsToValues: props => {
@@ -81,7 +127,7 @@ const Forms = withFormik<MyFormProps, FormValues>({
             year: document?.year || 1,
         }
     },
-
+    validationSchema: SignupSchema,
     handleSubmit(
         { number, firstNameAuthor, name, organizationName, pageCount, secondNameAuthor, type, year }: FormValues,
         { props, setSubmitting, setErrors }

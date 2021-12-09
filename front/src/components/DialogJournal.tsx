@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import Document from "../Entities/Document";
 import Journal from "../Entities/Journal";
 import Worker from "../Entities/Worker";
+import * as Yup from 'yup';
 
 interface DialogJournalProps {
     title: string;
@@ -13,6 +14,11 @@ interface DialogJournalProps {
     workers: Worker[];
     documents: Document[];
 }
+
+const SignupSchema = Yup.object().shape({
+    actionType: Yup.string()
+        .required('Необходимо заполнить поле')
+});
 
 const DialogJournal = (props: DialogJournalProps) => {
     const { show, journal, documents, workers, handleConfirm, handleClose, title } = props;
@@ -36,17 +42,22 @@ const DialogJournal = (props: DialogJournalProps) => {
                 <Formik
                     onSubmit={handleConfirm}
                     initialValues={journal || a}
+                    validationSchema={SignupSchema}
                 >
                     {({
                         handleSubmit,
                         handleChange,
-                        values
+                        values,
+                        errors
                     }) => (
 
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Тип действия</Form.Label>
-                                <Form.Control placeholder="Иркутск" onChange={handleChange} name="actionType" value={values.actionType} />
+                                <Form.Control isInvalid={!!errors.actionType} placeholder="Иркутск" onChange={handleChange} name="actionType" value={values.actionType} />
+                                <Form.Control.Feedback type="invalid">
+                                    {errors.actionType}
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>ФИО работника</Form.Label>

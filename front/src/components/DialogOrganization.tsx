@@ -1,7 +1,7 @@
 import { FormikProps, withFormik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
 import Organization from "../Entities/Organization";
-
+import * as Yup from 'yup';
 
 interface FormValues {
     name: string;
@@ -11,6 +11,23 @@ interface FormValues {
     faks: string;
     email: string;
 }
+
+const SignupSchema = Yup.object().shape({
+
+    name: Yup.string()
+        .required('Необходимо заполнить поле'),
+    addressIndex: Yup.string()
+        .required('Необходимо заполнить поле'),
+    city: Yup.string()
+        .required('Необходимо заполнить поле'),
+    phone: Yup.string()
+        .required('Необходимо заполнить поле'),
+    faks: Yup.string()
+        .required('Необходимо заполнить поле'),
+    email: Yup.string()
+        .required('Необходимо заполнить поле')
+});
+
 interface MyFormProps {
     organization?: Organization
     handleConfirm(organization: Organization): void;
@@ -21,32 +38,51 @@ const DialogOrganizationForm = (props: FormikProps<FormValues>) => {
         values,
         handleChange,
         handleSubmit,
+        errors,
     } = props;
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Город</Form.Label>
-                <Form.Control placeholder="Иркутск" onChange={handleChange} name="city" value={values.city} />
+                <Form.Control isInvalid={!!errors.city} placeholder="Иркутск" onChange={handleChange} name="city" value={values.city} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.city}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Название</Form.Label>
-                <Form.Control placeholder="Doofenshmirtz Evil Incorporated" onChange={handleChange} name="name" value={values.name} />
+                <Form.Control isInvalid={!!errors.name} placeholder="Doofenshmirtz Evil Incorporated" onChange={handleChange} name="name" value={values.name} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Индекс</Form.Label>
-                <Form.Control placeholder="6777071" onChange={handleChange} name="addressIndex" value={values.addressIndex} />
+                <Form.Control isInvalid={!!errors.addressIndex} placeholder="6777071" onChange={handleChange} name="addressIndex" value={values.addressIndex} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.addressIndex}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Почта</Form.Label>
-                <Form.Control placeholder="tukana@mail.com" onChange={handleChange} name="email" value={values.email} />
+                <Form.Control isInvalid={!!errors.email} placeholder="tukana@mail.com" onChange={handleChange} name="email" value={values.email} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Телефон</Form.Label>
-                <Form.Control placeholder="88005553535" onChange={handleChange} name="phone" value={values.phone} />
+                <Form.Control isInvalid={!!errors.phone} placeholder="88005553535" onChange={handleChange} name="phone" value={values.phone} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.phone}
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Факс</Form.Label>
-                <Form.Control placeholder="2024" onChange={handleChange} name="faks" value={values.faks} />
+                <Form.Control isInvalid={!!errors.faks} placeholder="2024" onChange={handleChange} name="faks" value={values.faks} />
+                <Form.Control.Feedback type="invalid">
+                    {errors.faks}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Button variant="primary" type="submit">
@@ -68,7 +104,7 @@ const Forms = withFormik<MyFormProps, FormValues>({
             email: organization?.email || "1",
         }
     },
-
+    validationSchema: SignupSchema,
     handleSubmit(
         { name, addressIndex, city, phone, faks, email }: FormValues,
         { props, setSubmitting, setErrors }
