@@ -25,7 +25,7 @@ function CardDocument(prop: DocumentProp) {
                     setCanReturn(true)
                     console.log(true);
                 }
-            })
+            }).catch(err => { console.log(err) })
         }
         return () => { }
     }, [document.id, document.inArchive, canReturn, workerId])

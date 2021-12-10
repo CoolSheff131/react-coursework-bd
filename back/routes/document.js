@@ -20,7 +20,11 @@ router.get('/find/:id', function (req, res) {
         if (err) throw err;
         console.log(result);
         console.log(result[0]);
-        res.send({ workerHandlingId: result[0].workerHandlingId });
+        if (result.length > 0) {
+          res.send({ workerHandlingId: result[0].workerHandlingId });
+        } else {
+          res.send({});
+        }
       },
     );
   }
